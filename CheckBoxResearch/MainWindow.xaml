@@ -7,132 +7,48 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <ControlTemplate x:Key="CheckBoxControlTemplate" TargetType="CheckBox">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="4"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Path Grid.Column="0" Width="20"
-                x:Name="Equis" Opacity="0" Stroke="Red" Fill="Red" Stretch="UniformToFill" StrokeThickness="2"
-                Data="M 3,10 L 8,14 L 16,6" Margin="2" />
-                <ContentPresenter Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            </Grid>
-        </ControlTemplate>
-
-        <Style TargetType="CheckBox">
-            <Setter Property="Template" Value="{StaticResource CheckBoxControlTemplate}"/>
-            <Setter Property="FontFamily" Value="MS Mincho"/>
-            <Setter Property="FontSize" Value="14"/>
-            <!--文字の色-->
-            <Setter Property="Foreground" Value="Red"/>
-            <!--?-->
-            <Setter Property="Background" Value="Aqua"/>
-            <!--?-->
-            <Setter Property="BorderBrush" Value="Blue"/>
-            <Setter Property="BorderThickness" Value="1"/>
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" Value="{StaticResource BlueGray3}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="!" TargetType="{x:Type CheckBox}">
-            <Setter Property="SnapsToDevicePixels" Value="true" />
-            <Setter Property="OverridesDefaultStyle" Value="true" />
-            <!--
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource CheckBoxFocusVisual}" />
-            -->
+        <!--
+        以下のページのものをカスタマイズさせてもらった。
+        https://araramistudio.jimdo.com/2016/10/31/wpf%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%82%92%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA/
+        CheckBoxのプロパティIsCheckedはnullも設定できるが、アップローダーでは使用しないので、True/Falseのみ対応する。
+        
+        
+        以下のMSのページのものは動作しなかった。
+        https://docs.microsoft.com/ja-jp/dotnet/desktop/wpf/controls/checkbox-styles-and-templates?view=netframeworkdesktop-4.8
+        -->
+        <Style TargetType="{x:Type CheckBox}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type CheckBox}">
-                        <!--行頭の要素と、子要素を表示するコントロール(https://blog.okazuki.jp/entry/20130104/1357309697)-->
-                        <BulletDecorator Background="Transparent">
+                        <!--行頭の要素(Bullet)と、子要素(Child)を表示するコントロール(https://blog.okazuki.jp/entry/20130104/1357309697)-->
+                        <BulletDecorator>
                             <!--行頭の要素(チェックボックスの矩形)-->
                             <BulletDecorator.Bullet>
-                                <Border x:Name="Border" Width="13" Height="13" CornerRadius="0" Background="SkyBlue" BorderBrush="AliceBlue" BorderThickness="1">
-                                    <Grid>
-                                        <Path Visibility="Collapsed" Width="7" Height="7" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0">
-                                            <Path.Stroke>
-                                                <SolidColorBrush Color="Red" />
-                                            </Path.Stroke>
-                                        </Path>
-                                        <Path Visibility="Collapsed" Width="7" Height="7" x:Name="InderminateMark" SnapsToDevicePixels="False" StrokeThickness="2" Data="M 0 7 L 7 0">
-                                            <Path.Stroke>
-                                                <SolidColorBrush Color="Purple" />
-                                            </Path.Stroke>
-                                        </Path>
-                                    </Grid>
-                                </Border>
+                                <Grid Width="17" Height="17">
+                                    <Rectangle x:Name="CheckRectangle" Width="12" Height="12" Fill="SkyBlue" Stroke="Green" StrokeThickness="1" />
+                                    <Path x:Name="CheckMarkPath" StrokeThickness="2" Data="M 3 5 L 5 8 L 13 0" Stroke="Red"/>
+                                </Grid>
                             </BulletDecorator.Bullet>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <ColorAnimationUsingKeyFrames
-                                                Storyboard.TargetName="Border"
-                                                Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource ControlMouseOverColor}" />
-                                            </ColorAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                Storyboard.TargetProperty="(Panel.Background).
-                      (GradientBrush.GradientStops)[1].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource ControlPressedColor}" />
-                                            </ColorAnimationUsingKeyFrames>
-                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                Storyboard.TargetProperty="(Border.BorderBrush).
-                      (GradientBrush.GradientStops)[0].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource PressedBorderDarkColor}" />
-                                            </ColorAnimationUsingKeyFrames>
-                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
-                                                Storyboard.TargetProperty="(Border.BorderBrush).
-                      (GradientBrush.GradientStops)[1].(GradientStop.Color)">
-                                                <EasingColorKeyFrame KeyTime="0"
-                                         Value="{StaticResource PressedBorderLightColor}" />
-                                            </ColorAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled" />
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="CheckStates">
-                                    <VisualState x:Name="Checked">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                 Storyboard.TargetName="CheckMark">
-                                                <DiscreteObjectKeyFrame KeyTime="0"
-                                            Value="{x:Static Visibility.Visible}" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Unchecked" />
-                                    <VisualState x:Name="Indeterminate">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                 Storyboard.TargetName="InderminateMark">
-                                                <DiscreteObjectKeyFrame KeyTime="0"
-                                            Value="{x:Static Visibility.Visible}" />
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <!--行頭の要素(チェックボックスの文字列)-->
-                            <ContentPresenter Margin="4,0,0,0"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            RecognizesAccessKey="True" />
+                            <!--子要素(見出しラベル)-->
+                            <BulletDecorator.Child>
+                                <ContentPresenter/>
+                            </BulletDecorator.Child>
                         </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Yellow"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="CheckRectangle" Property="Fill" Value="White" />
+                                <Setter TargetName="CheckRectangle" Property="Stroke" Value="LightGray" />
+                                <Setter TargetName="CheckRectangle" Property="StrokeDashArray" Value="1,3" />
+                                <Setter TargetName="CheckMarkPath" Property="Stroke" Value="Gray" />
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="CheckMarkPath" Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -140,6 +56,25 @@
     </Window.Resources>
 
     <Grid>
-        <CheckBox Content="CheckBox" FontSize="24"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <CheckBox Grid.Row="0" Content="unchecked checkbox">
+            <!--↓フォントサイズ-->
+            <CheckBox.FontSize>24</CheckBox.FontSize>
+            <!--↓テキストの色-->
+            <CheckBox.Foreground>Red</CheckBox.Foreground>
+            <!--↓使われない？-->
+            <CheckBox.Background>Blue</CheckBox.Background>
+        </CheckBox>
+        <CheckBox Grid.Row="1" Content="unchecked checkbox" IsChecked="False"/>
+        <CheckBox Grid.Row="2" Content="checked checkbox" IsChecked="True"/>
+        <CheckBox Grid.Row="3" Content="disabled unchecked checkbox" IsEnabled="False" IsChecked="False"/>
+        <CheckBox Grid.Row="4" Content="disabled checked checkbox"  IsEnabled="False" IsChecked="True"/>
     </Grid>
 </Window>
