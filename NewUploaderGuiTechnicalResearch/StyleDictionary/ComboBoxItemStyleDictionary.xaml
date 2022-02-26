@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 通常時の見た目 -->
+    <ControlTemplate x:Key="ComboBoxItemTemplate" TargetType="ComboBoxItem">
+        <Grid>
+            <Rectangle Fill="White"/>
+            <ContentPresenter/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- マウスオーバー時の見た目 -->
+    <ControlTemplate x:Key="HoverComboBoxItemTemplate" TargetType="ComboBoxItem">
+        <Grid>
+            <Rectangle Fill="Red"/>
+            <ContentPresenter/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- 選択済み時の見た目 -->
+    <ControlTemplate x:Key="SelectedComboBoxItemTemplate" TargetType="ComboBoxItem">
+        <Grid>
+            <Rectangle Fill="Blue"/>
+            <ContentPresenter/>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="Template" Value="{StaticResource ComboBoxItemTemplate}"/>
+
+        <Style.Triggers>
+            <!--IsSelectedと、IsMouseOverの順番には意味がある。IsSelectedとIsMouseOverがどちらもtrueの場合はマウスオーバーの色にしたいので、IsMouseOverの順番を後にしている-->
+            <Trigger Property="IsSelected" Value="true">
+                <Setter Property="Template" Value="{StaticResource SelectedComboBoxItemTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Template" Value="{StaticResource HoverComboBoxItemTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

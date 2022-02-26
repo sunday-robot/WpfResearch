@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="ButtonColor" Color="#FF08107B"/>
+    <SolidColorBrush x:Key="HoverButtonColor" Color="#FF107B08"/>
+    <SolidColorBrush x:Key="PressedButtonColor" Color="#FF7B0810"/>
+    <SolidColorBrush x:Key="DisabledButtonColor" Color="Gray"/>
+    <SolidColorBrush x:Key="HoverIconButtonBackgroundColor" Color="Yellow"/>
+    <SolidColorBrush x:Key="HoverIconButtonBorderColor" Color="Green"/>
+    <SolidColorBrush x:Key="PressedIconButtonBackgroundColor" Color="Blue"/>
+    <SolidColorBrush x:Key="DisabledIconButtonMaskColor" Color="#80FF0000"/>
+</ResourceDictionary>

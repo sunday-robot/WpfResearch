@@ -1,0 +1,57 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColorDictionary.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- 通常時のボタンの見た目 -->
+    <ControlTemplate x:Key="ButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <Rectangle Fill="{StaticResource ButtonColor}" RadiusX="5" RadiusY="5"/>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- マウスオーバー時のボタンの見た目 -->
+    <ControlTemplate x:Key="HoverButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <Rectangle Fill="{StaticResource HoverButtonColor}" RadiusX="5" RadiusY="5"/>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- 押下時のボタンの見た目 -->
+    <ControlTemplate x:Key="PressedButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <Rectangle Fill="{StaticResource PressedButtonColor}" RadiusX="5" RadiusY="5"/>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- 非活性時のボタンの見た目 -->
+    <ControlTemplate x:Key="DisabledButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <Rectangle Fill="{StaticResource DisabledButtonColor}" RadiusX="5" RadiusY="5"/>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Template" Value="{StaticResource HoverButtonControlTemplate}"/>
+                <Setter Property="Foreground" Value="Yellow"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Template" Value="{StaticResource PressedButtonControlTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Template" Value="{StaticResource DisabledButtonControlTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColorDictionary.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- 通常時のアイコンボタンの見た目 -->
+    <ControlTemplate x:Key="IconButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- マウスオーバー時のアイコンボタンの見た目 -->
+    <ControlTemplate x:Key="HoverIconButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <Rectangle Fill="{StaticResource HoverIconButtonBackgroundColor}"/>
+            <Border BorderBrush="{StaticResource HoverIconButtonBorderColor}" BorderThickness="3"></Border>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- 押下時のアイコンボタンの見た目 -->
+    <ControlTemplate x:Key="PressedIconButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <Rectangle Fill="{StaticResource PressedIconButtonBackgroundColor}"/>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- 非活性時のアイコンボタンの見た目 -->
+    <ControlTemplate x:Key="DisabledIconButtonControlTemplate" TargetType="Button">
+        <Grid>
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Rectangle Fill="{StaticResource DisabledIconButtonMaskColor}"/>
+            <!-- アイコン画像の手前に半透明矩形を置くことで非活性であることを示す -->
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="IconButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource IconButtonControlTemplate}"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Template" Value="{StaticResource HoverIconButtonControlTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Template" Value="{StaticResource PressedIconButtonControlTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Template" Value="{StaticResource DisabledIconButtonControlTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
