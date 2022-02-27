@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewUploaderGuiTechnicalResearch", "NewUploaderGuiTechnicalResearch\NewUploaderGuiTechnicalResearch.csproj", "{792AB485-1B3B-4129-BF32-53F349B433E6}"
 EndProject
@@ -12,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TabControlResearch", "TabControlResearch\TabControlResearch.csproj", "{E3C67968-B1C1-4735-84AD-31C68FE13179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckBoxResearch", "CheckBoxResearch\CheckBoxResearch.csproj", "{863158F3-DD99-4444-BC06-015DD37BC7AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckBoxResearch", "CheckBoxResearch\CheckBoxResearch.csproj", "{863158F3-DD99-4444-BC06-015DD37BC7AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIstViewResearch", "LIstViewResearch\LIstViewResearch.csproj", "{EADE16EA-051A-4B50-80E1-A522CFD13082}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{863158F3-DD99-4444-BC06-015DD37BC7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{863158F3-DD99-4444-BC06-015DD37BC7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{863158F3-DD99-4444-BC06-015DD37BC7AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EADE16EA-051A-4B50-80E1-A522CFD13082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EADE16EA-051A-4B50-80E1-A522CFD13082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EADE16EA-051A-4B50-80E1-A522CFD13082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EADE16EA-051A-4B50-80E1-A522CFD13082}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
