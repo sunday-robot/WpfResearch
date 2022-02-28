@@ -14,10 +14,14 @@
 
         <Style TargetType="{x:Type ListViewItem}">
             <!--
+            以下の設定を行うと、列定義が無視されて、第1列しか表示されないのでNG。
+            -->
+            <!--
                     背景の設定(これを行わないと、マウスオーバー時に勝手なグラデーションがかかってしまう)
                     以下のページを参考にさせてもらった。
                     https://todosoft.net/blog/?p=832
                     -->
+            <!--
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContentControl}">
@@ -27,6 +31,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+                    -->
 
             <!--
                     状態に応じた背景色設定

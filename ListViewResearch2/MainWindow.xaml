@@ -1,0 +1,183 @@
+﻿<Window x:Class="ListViewResearch2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ListViewResearch2"
+        mc:Ignorable="d"
+        xmlns:my="clr-namespace:ListViewResearch2"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <!--
+        以下のページを参考にさせてもらった。
+        https://social.msdn.microsoft.com/Forums/vstudio/ja-JP/ba44e228-fbe9-4e39-a374-1eced7f10e67/listview-12398-view-12434-gridview?forum=wpfja
+        -->
+        <ControlTemplate x:Key="ListViewItemTemplate_View" TargetType="{x:Type ListBoxItem}">
+            <Border
+                x:Name="Bd"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                SnapsToDevicePixels="True">
+                <GridViewRowPresenter
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+
+            <!-- 状況（奇数行/偶数行、選択されているかどうか、マウスオーバーかどうか、フォーカスがあるかどうか)に応じた背景色設定 -->
+            <ControlTemplate.Triggers>
+                <!-- 奇数行、マウスオーバーではない -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="ItemsControl.AlternationIndex" Value="0"/>
+                        <Condition Property="IsMouseOver" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="LightBlue"/>
+                </MultiTrigger>
+
+                <!-- 奇数行、マウスオーバー -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="ItemsControl.AlternationIndex" Value="0"/>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="Blue"/>
+                </MultiTrigger>
+
+                <!-- 偶数行、マウスオーバーではない -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="ItemsControl.AlternationIndex" Value="1"/>
+                        <Condition Property="IsMouseOver" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="Pink" />
+                </MultiTrigger>
+
+                <!-- 偶数行、マウスオーバー -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="ItemsControl.AlternationIndex" Value="1"/>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="Red"/>
+                </MultiTrigger>
+
+                <!-- フォーカスあり、選択行、マウスオーバーではない -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                        <Condition Property="IsSelected" Value="True"/>
+                        <Condition Property="IsMouseOver" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="LightGreen" />
+                </MultiTrigger>
+
+                <!-- フォーカスあり、選択行、マウスオーバー -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                        <Condition Property="IsSelected" Value="True"/>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="Green" />
+                </MultiTrigger>
+
+                <!-- フォーカスなし、選択行、マウスオーバーではない -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                        <Condition Property="IsSelected" Value="True"/>
+                        <Condition Property="IsMouseOver" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="#FFDDDD88" />
+                </MultiTrigger>
+
+                <!-- フォーカスなし、選択行、マウスオーバー -->
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                        <Condition Property="IsSelected" Value="True"/>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="Bd" Property="Background" Value="Yellow" />
+                </MultiTrigger>
+
+                <!-- ListViewがDisabledの場合の文字の色 -->
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ListViewItemTemplate_NoView" TargetType="{x:Type ListBoxItem}">
+            <Border
+                x:Name="Bd"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                SnapsToDevicePixels="True">
+                <ContentPresenter
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsSelected" Value="True"/>
+                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                </MultiTrigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}" >
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <!-- ListViewにViewが設定されている場合にGridViewRowPresenterのテンプレートにする -->
+            <Setter Property="Template" Value="{StaticResource ResourceKey=ListViewItemTemplate_View}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=View,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListView}}}"  Value="{x:Null}">
+                    <!-- ListViewにViewが設定されていない場合にContentPresenterのテンプレートにする -->
+                    <Setter Property="Template" Value="{StaticResource ResourceKey=ListViewItemTemplate_NoView}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ListView">
+            <!--奇数行と偶数行で色を変えるために、以下のプロパティに2を設定する-->
+            <Setter Property="AlternationCount" Value="2"/>
+            <!--データのない行の色-->
+            <Setter Property="Background" Value="DarkGreen"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.DataContext>
+            <my:DataContextClass/>
+        </Grid.DataContext>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" ItemsSource="{Binding ListViewItemsSource, Mode=OneWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Column1}" Header="A"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Column2}" Header="B"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock Grid.Row="1">↑の選択時やマウス オーバー時の表示を、<LineBreak/>↓の表示と同じにしたい。</TextBlock>
+        <ListView Grid.Row="2" ItemsSource="{Binding ListViewItemsSource, Mode=OneWay}" DisplayMemberPath="Column1" />
+    </Grid>
+</Window>
